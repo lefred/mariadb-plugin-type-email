@@ -16,6 +16,12 @@ INSERT INTO contacts VALUES (1, 'Case.Sensitive@EXAMPLE.COM');
 SELECT EMAIL_LOCAL_PART(address), EMAIL_DOMAIN(address),
        EMAIL_NORMALIZE(address)
 FROM contacts;
++---------------------------+-----------------------+----------------------------+
+| EMAIL_LOCAL_PART(address) | EMAIL_DOMAIN(address) | EMAIL_NORMALIZE(address)   |
++---------------------------+-----------------------+----------------------------+
+| Case.Sensitive            | EXAMPLE.COM           | Case.Sensitive@example.com |
++---------------------------+-----------------------+----------------------------+
+1 row in set (0.001 sec)
 ```
 
 The plugin also registers:
@@ -53,9 +59,9 @@ cmake -S /path/to/MariaDB-server -B build
 cmake --build build --target mariadbd
 ```
 
-## Instalation
+## Installation
 
-Load the plugin (it's possible to modify the `CMakeLists.txt` to load it a start and make it mandatory.
+Load the plugin (it's possible to modify the `CMakeLists.txt` to load it at start and make it mandatory.
 
 ```sql
 install soname 'type_email';
