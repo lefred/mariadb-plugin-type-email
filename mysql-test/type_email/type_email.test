@@ -1,0 +1,30 @@
+--source include/have_innodb.inc
+
+CREATE TABLE email_test (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  address EMAIL NOT NULL,
+  UNIQUE KEY (address(254))
+) ENGINE=InnoDB;
+
+INSERT INTO email_test(address) VALUES
+  ('alice@example.com'),
+  ('first.last+tag@sub.example.com'),
+  ('"quoted local"@example.com');
+
+SELECT address, EMAIL_LOCAL_PART(address), EMAIL_DOMAIN(address)
+  FROM email_test ORDER BY id;
+SELECT EMAIL_IS_VALID('good@example.org'),
+       EMAIL_IS_VALID('bad@@example.org'),
+       EMAIL_NORMALIZE('Case.Sensitive@EXAMPLE.ORG');
+
+--error ER_WRONG_VALUE
+INSERT INTO email_test(address) VALUES ('not-an-address');
+--error ER_WRONG_VALUE
+INSERT INTO email_test(address) VALUES ('a..b@example.org');
+--error ER_WRONG_VALUE
+INSERT INTO email_test(address) VALUES ('user@-example.org');
+
+SELECT CAST('admin@example.net' AS EMAIL);
+SELECT CAST('invalid' AS EMAIL) IS NULL;
+
+DROP TABLE email_test;

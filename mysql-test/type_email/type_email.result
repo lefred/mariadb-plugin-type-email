@@ -1,0 +1,33 @@
+CREATE TABLE email_test (
+id INT PRIMARY KEY AUTO_INCREMENT,
+address EMAIL NOT NULL,
+UNIQUE KEY (address(254))
+) ENGINE=InnoDB;
+INSERT INTO email_test(address) VALUES
+('alice@example.com'),
+('first.last+tag@sub.example.com'),
+('"quoted local"@example.com');
+SELECT address, EMAIL_LOCAL_PART(address), EMAIL_DOMAIN(address)
+FROM email_test ORDER BY id;
+address	EMAIL_LOCAL_PART(address)	EMAIL_DOMAIN(address)
+alice@example.com	alice	example.com
+first.last+tag@sub.example.com	first.last+tag	sub.example.com
+"quoted local"@example.com	"quoted local"	example.com
+SELECT EMAIL_IS_VALID('good@example.org'),
+EMAIL_IS_VALID('bad@@example.org'),
+EMAIL_NORMALIZE('Case.Sensitive@EXAMPLE.ORG');
+EMAIL_IS_VALID('good@example.org')	EMAIL_IS_VALID('bad@@example.org')	EMAIL_NORMALIZE('Case.Sensitive@EXAMPLE.ORG')
+1	0	Case.Sensitive@example.org
+INSERT INTO email_test(address) VALUES ('not-an-address');
+ERROR HY000: Incorrect EMAIL value: 'not-an-address'
+INSERT INTO email_test(address) VALUES ('a..b@example.org');
+ERROR HY000: Incorrect EMAIL value: 'a..b@example.org'
+INSERT INTO email_test(address) VALUES ('user@-example.org');
+ERROR HY000: Incorrect EMAIL value: 'user@-example.org'
+SELECT CAST('admin@example.net' AS EMAIL);
+CAST('admin@example.net' AS EMAIL)
+admin@example.net
+SELECT CAST('invalid' AS EMAIL) IS NULL;
+CAST('invalid' AS EMAIL) IS NULL
+1
+DROP TABLE email_test;
