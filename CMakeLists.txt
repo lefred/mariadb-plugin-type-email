@@ -14,7 +14,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1335  USA
 
-MYSQL_ADD_PLUGIN(type_email
-                 plugin.cc sql_type_email.cc email_validation.cc email_functions.cc
-                 MODULE_ONLY RECOMPILE_FOR_EMBEDDED)
-
+cmake_minimum_required(VERSION 3.12)
+find_package(mariadb-plugin REQUIRED)
+MARIADB_ADD_PLUGIN(pluginbs.cc sql_type_email.cc email_validation.cc email_functions.cc
+                 MODULE_ONLY
+                 RECOMPILE_FOR_EMBEDDED
+                 AUTHOR lefred
+                 VERSION 0.2.1
+                 DESCRIPTION "Email data type"
+                 )
+include(CPack)

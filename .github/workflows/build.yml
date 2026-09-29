@@ -15,12 +15,7 @@ permissions:
 
 jobs:
   build:
-    uses: lefred/mariadb-plugin-ci/.github/workflows/build-plugin.yml@v1
+    uses: lefred/mariadb-plugin-ci/.github/workflows/build-plugin-new.yml@main
     with:
-      plugin_name: type-email
-      plugin_directory: type_email
-      build_target: type_email
-      plugin_library: type_email.so
-      cmake_options: -DPLUGIN_DATE_EXTRA=DYNAMIC
-      test_suite: type_email
-      run_tests: ${{ startsWith(github.ref, 'refs/tags/v') }}
+       mariadb_versions: 74647
+       test_suites: type_email
