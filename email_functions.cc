@@ -39,7 +39,7 @@ public:
   }
   LEX_CSTRING func_name_cstring() const override
   {
-    return "email_is_valid"_LEX_CSTRING;
+    return {STRING_WITH_LEN("email_is_valid")};
   }
   Item *shallow_copy(THD *thd) const override
   {
@@ -132,7 +132,7 @@ class Item_func_email_local_part : public Item_func_email_string
 public:
   Item_func_email_local_part(THD *thd, Item *arg)
     : Item_func_email_string(thd, arg, LOCAL_PART,
-                             "email_local_part"_LEX_CSTRING) {}
+                             {STRING_WITH_LEN("email_local_part")}) {}
 };
 
 class Item_func_email_domain : public Item_func_email_string
@@ -140,7 +140,7 @@ class Item_func_email_domain : public Item_func_email_string
 public:
   Item_func_email_domain(THD *thd, Item *arg)
     : Item_func_email_string(thd, arg, DOMAIN,
-                             "email_domain"_LEX_CSTRING) {}
+                             {STRING_WITH_LEN("email_domain")}) {}
 };
 
 class Item_func_email_normalize : public Item_func_email_string
@@ -148,7 +148,7 @@ class Item_func_email_normalize : public Item_func_email_string
 public:
   Item_func_email_normalize(THD *thd, Item *arg)
     : Item_func_email_string(thd, arg, NORMALIZED,
-                             "email_normalize"_LEX_CSTRING) {}
+                             {STRING_WITH_LEN("email_normalize")}) {}
 };
 
 static Create_email_func_arg1<Item_func_email_is_valid> create_email_is_valid;
