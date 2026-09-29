@@ -297,6 +297,14 @@ void Item_email_typecast::print(String *str, enum_query_type query_type)
   str->append(STRING_WITH_LEN("cast("));
   args[0]->print(str, query_type);
   str->append(STRING_WITH_LEN(" as email"));
-  print_charset(str);
+  // Keep this compatible with servers predating Item_char_typecast::print_charset.
+  if (CHARSET_INFO *cs= cast_charset())
+  {
+    str->append(STRING_WITH_LEN(" charset "));
+    str->append(cs->cs_name);
+    if ((cs->state & MY_CS_BINSORT) &&
+        Charset(cs).can_have_collate_clause())
+      str->append(STRING_WITH_LEN(" binary"));
+  }
   str->append(')');
 }

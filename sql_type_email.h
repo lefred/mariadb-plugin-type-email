@@ -26,7 +26,10 @@ public:
 
   virtual ~Type_handler_email() {}
   const Type_collection *type_collection() const override;
+#if MYSQL_VERSION_ID >= 120301
+  // Column attribute restrictions were added in MariaDB 12.3.1.
   uint get_column_attributes() const override { return ATTR_CHARSET; }
+#endif
   const Type_handler *type_handler_for_comparison() const override;
   virtual Item *create_typecast_item(THD *thd, Item *item,
                   const Type_cast_attributes &attr) const override;
