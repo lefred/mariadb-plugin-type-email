@@ -31,3 +31,10 @@ SELECT CAST('invalid' AS EMAIL) IS NULL;
 CAST('invalid' AS EMAIL) IS NULL
 1
 DROP TABLE email_test;
+CREATE TABLE email_charset_test (address EMAIL) DEFAULT CHARSET=latin1;
+SELECT CHARACTER_SET_NAME, COLLATION_NAME FROM information_schema.COLUMNS
+WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='email_charset_test'
+    AND COLUMN_NAME='address';
+CHARACTER_SET_NAME	COLLATION_NAME
+latin1	latin1_swedish_ci
+DROP TABLE email_charset_test;

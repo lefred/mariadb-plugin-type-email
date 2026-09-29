@@ -106,6 +106,12 @@ bool Type_handler_email:: Column_definition_prepare_stage1(THD *thd,
   MEM_ROOT *mem_root, Column_definition *def, column_definition_type_t type,
   const Column_derived_attributes *derived_attr) const
 {
+#if MYSQL_VERSION_ID < 120301
+  // Older parsers assign binary to every UDT, even without an explicit
+  // CHARACTER SET clause. Let EMAIL inherit the table's character set.
+  if (def->charset == &my_charset_bin)
+    def->charset= NULL;
+#endif
   if (Type_handler_long_blob::
       Column_definition_prepare_stage1(thd, mem_root, def, type, derived_attr))
     return true;
