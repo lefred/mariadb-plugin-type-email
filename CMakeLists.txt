@@ -20,7 +20,7 @@ MARIADB_ADD_PLUGIN(type_email plugin.cc sql_type_email.cc email_validation.cc em
                  MODULE_ONLY
                  RECOMPILE_FOR_EMBEDDED
                  AUTHOR lefred
-                 VERSION 0.2.1
+                 VERSION 0.2.2
                  DESCRIPTION "Email data type"
                  )
 include(CPack)

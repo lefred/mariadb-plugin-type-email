@@ -32,7 +32,7 @@ static struct st_mariadb_data_type plugin_descriptor_email=
 #define EMAIL_PLUGIN_ENTRY(TYPE, DESCRIPTOR, NAME, DESCRIPTION) \
 {                                                               \
   TYPE, DESCRIPTOR, NAME, PLUGIN_AUTHOR, DESCRIPTION,      \
-  PLUGIN_LICENSE, 0, 0, 0x0100, NULL, NULL, "0.2.1",        \
+  PLUGIN_LICENSE, 0, 0, 0x0100, NULL, NULL, "0.2.2",        \
   MariaDB_PLUGIN_MATURITY_BETA                                   \
 }
 
