@@ -16,7 +16,7 @@
 
 cmake_minimum_required(VERSION 3.12)
 find_package(mariadb-plugin REQUIRED)
-MARIADB_ADD_PLUGIN(pluginbs.cc sql_type_email.cc email_validation.cc email_functions.cc
+MARIADB_ADD_PLUGIN(type_email plugin.cc sql_type_email.cc email_validation.cc email_functions.cc
                  MODULE_ONLY
                  RECOMPILE_FOR_EMBEDDED
                  AUTHOR lefred
